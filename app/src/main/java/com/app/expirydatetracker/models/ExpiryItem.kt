@@ -4,8 +4,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.app.expirydatetracker.helpers.DateHelper
 import com.app.expirydatetracker.helpers.Recycler
-import com.app.expirydatetracker.ui.additem.ItemCategories
-import java.util.*
 
 @Entity(tableName = "expiring_items")
 data class ExpiryItem(

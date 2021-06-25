@@ -9,7 +9,7 @@ interface DAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertItem(item: ExpiryItem?)
 
-    @Query("SELECT * FROM expiring_items WHERE :date <= dateExpiring ORDER BY dateExpiring DESC")
+    @Query("SELECT * FROM expiring_items WHERE :date <= dateExpiring ORDER BY dateExpiring ASC")
     fun readActiveItems(date: Long): LiveData<List<ExpiryItem>>
 
     @Query("SELECT * FROM expiring_items WHERE :date > dateExpiring ORDER BY dateExpiring DESC")

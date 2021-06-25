@@ -9,10 +9,11 @@ import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
-import com.app.expirydatetracker.R
+import androidx.navigation.fragment.findNavController
 import com.app.expirydatetracker.databinding.AddItemFragmentBinding
 import com.app.expirydatetracker.helpers.DateHelper
 import com.app.expirydatetracker.models.ExpiryItem
+import com.app.expirydatetracker.models.ItemCategories
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
@@ -41,10 +42,6 @@ class AddItemFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-    }
-
-    override fun onResume() {
-        super.onResume()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -76,12 +73,9 @@ class AddItemFragment : Fragment() {
             buttonEnabling()
         }
 
-
-
         populateMenu()
 
         binding.saveItemButton.setOnClickListener {
-
             viewModel.insertItem(
                 ExpiryItem(
                     name = binding.itemNameInputText.editableText.toString(),
@@ -90,6 +84,7 @@ class AddItemFragment : Fragment() {
                     dateExpiring = itemExpiryDate!!
                 )
             )
+            navigateAfterAdd()
         }
     }
 
@@ -110,18 +105,14 @@ class AddItemFragment : Fragment() {
         }
     }
 
-    fun buttonEnabling() {
+    private fun buttonEnabling() {
         if(validItemName && itemExpiryDate != null && itemCategory != null) binding.saveItemButton.isEnabled = true
+    }
+
+    private fun navigateAfterAdd() {
+        Toast.makeText(requireContext(), "Item successfully added", Toast.LENGTH_SHORT).show()
+        findNavController().navigate(AddItemFragmentDirections.actionAddItemFragmentToTabFragment())
     }
 
 }
 
-enum class ItemCategories(
-    val category: String,
-    val icon: Int
-) {
-    UNDEFINED("Undefined", R.drawable.ic_expired),
-    FOOD("Food", R.drawable.ic_baseline_set_meal_24),
-    GIFT_CARD("Gift card", R.drawable.ic_baseline_card_giftcard_24),
-    RETURNS("Returns", R.drawable.ic_baseline_assignment_return_24)
-}
