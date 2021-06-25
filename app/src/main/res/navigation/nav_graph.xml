@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/tabFragment">
+
+    <fragment
+        android:id="@+id/itemsFragment"
+        android:name="com.app.expirydatetracker.ui.items.ItemsFragment"
+        android:label="items_fragment"
+        tools:layout="@layout/items_fragment" >
+        <action
+            android:id="@+id/action_itemsFragment_to_addItemFragment"
+            app:destination="@id/addItemFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tabFragment"
+        android:name="com.app.expirydatetracker.ui.viewpager.TabFragment"
+        android:label="TabFragment" >
+        <action
+            android:id="@+id/action_tabFragment_to_addItemFragment"
+            app:destination="@id/addItemFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/expiredFragment"
+        android:name="com.app.expirydatetracker.ui.expired.ExpiredFragment"
+        android:label="expired_fragment"
+        tools:layout="@layout/expired_fragment" />
+    <fragment
+        android:id="@+id/addItemFragment"
+        android:name="com.app.expirydatetracker.ui.additem.AddItemFragment"
+        android:label="add_item_fragment"
+        tools:layout="@layout/add_item_fragment" >
+        <action
+            android:id="@+id/action_addItemFragment_to_itemsFragment"
+            app:destination="@id/itemsFragment" />
+        <action
+            android:id="@+id/action_addItemFragment_to_tabFragment"
+            app:destination="@id/tabFragment" />
+    </fragment>
+</navigation>
